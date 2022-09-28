@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Card from "../../Components/card";
-import Header from "../../Components/header";
-import apiUrl from "../../Shared/Urls/apiUrl";
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import Card from '../../Components/card';
+import Header from '../../Components/header';
+import apiUrl from '../../Shared/Urls/apiUrl';
 
 const BookList = () => {
   const [bookList, setBookList] = useState([]);
@@ -19,7 +19,7 @@ const BookList = () => {
         <div className="row gy-4">
           {bookList.map((item) => (
             <div className="col-4" key={item._id}>
-              <Card book={item} />
+              <Card book={item} details={false} />
             </div>
           ))}
         </div>

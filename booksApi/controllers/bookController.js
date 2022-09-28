@@ -1,8 +1,17 @@
-const { response } = require("express");
-const Book = require("../models/books");
+const { response } = require('express');
+const Book = require('../models/books');
+
 exports.getBooks = async (req, res, next) => {
-  const data = await Book.find().sort({ title: "asc" });
-  res.json({ status: 200, message: "Sucess", resultData: data });
+  debugger;
+  const data = await Book.find().sort({ title: 'asc' });
+  res.json({ status: 200, message: 'Sucess', resultData: data });
+};
+exports.getBookDetails = async (req, res, next) => {
+  debugger;
+  const bookId = req.params.bookId;
+  console.log(bookId);
+  const data = await Book.findById(bookId);
+  res.json({ status: 200, message: 'Sucess', resultData: data });
 };
 
 exports.postAddBook = async (req, res, next) => {
@@ -15,6 +24,6 @@ exports.postAddBook = async (req, res, next) => {
   });
   try {
     await book.save();
-    res.json({ status: 200, message: "Sucess" });
+    res.json({ status: 200, message: 'Sucess' });
   } catch (err) {}
 };
