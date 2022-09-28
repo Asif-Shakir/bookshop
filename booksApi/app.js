@@ -1,30 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const cors = require("cors");
+
 //init & middleware
 
 const app = express();
-const bookRoutes = require('./routes/bookRoutes');
+const bookRoutes = require("./routes/bookRoutes");
 app.use(bodyParser.json());
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', '*');
-  res.setHeader(
-    'Access-Control-Allow-Header',
-    'Content-Type , Authorization'
-  );
-  next();
-});
+app.use(cors());
 app.use(bookRoutes);
 mongoose
   .connect(
-    'mongodb+srv://asifshakir:123mongodb123@cluster0.6h1tvmj.mongodb.net/?retryWrites=true&w=majority'
+    "mongodb+srv://asifshakir:123mongodb123@cluster0.6h1tvmj.mongodb.net/bookManagement?retryWrites=true&w=majority"
   )
-  .then((result) => {
+  .then(() => {
     app.listen(8080);
   })
   .catch((err) => {
     console.log(err);
   });
- 
