@@ -1,21 +1,33 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "../../Shared/Urls/apiUrl";
 
-const initialFormData = Object.freeze({
+const initialFormData = {
+  _id: "",
   title: "",
   price: "",
   pages: "",
   description: "",
-});
+};
 const AddBook = () => {
+  const params = useParams();
   const [formData, updateFormData] = useState(initialFormData);
+  const [bookDetail, setBookDetail] = useState(initialFormData);
   const navigate = useNavigate();
+  useEffect(() => {
+    const getBookDetails = async (bookId) => {
+      const res = await axios.get(apiUrl.BookDetails + `/${bookId}`);
+      updateFormData(res.data.resultData);
+    };
+    if (params.bookId) getBookDetails(params.bookId);
+    else updateFormData(initialFormData);
+  }, [params.bookId]);
+  // console.log(formData);
   const handleChange = (e) => {
     updateFormData({
       ...formData,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     });
   };
   const handleSubmit = async (e) => {
@@ -24,7 +36,7 @@ const AddBook = () => {
       const res = await axios.post(apiUrl.AddBook, JSON.stringify(formData), {
         headers: { "Content-Type": "application/json" },
       });
-      if (res.data.status == 200) {
+      if (res.data.status === 200) {
         return navigate("/");
       }
     } catch (err) {}
@@ -38,6 +50,7 @@ const AddBook = () => {
               <div className="card-body">
                 <h1 className="display-6 text-success fw-800">Add Book</h1>
                 <form onSubmit={handleSubmit}>
+                  <input type="hidden" value={formData._id} />
                   <div className="row">
                     <div className="col-12">
                       <div className="mb-3">
@@ -45,6 +58,7 @@ const AddBook = () => {
                         <input
                           name="title"
                           type="text"
+                          value={formData.title}
                           className="form-control"
                           placeholder="Enter title"
                           onChange={handleChange}
@@ -59,6 +73,7 @@ const AddBook = () => {
                         <input
                           name="price"
                           type="text"
+                          value={formData.price}
                           className="form-control"
                           placeholder="Enter price"
                           onChange={handleChange}
@@ -71,6 +86,7 @@ const AddBook = () => {
                         <input
                           name="pages"
                           type="text"
+                          value={formData.pages}
                           className="form-control"
                           placeholder="Enter page"
                           onChange={handleChange}
@@ -86,6 +102,7 @@ const AddBook = () => {
                           name="description"
                           rows="4"
                           className="form-control"
+                          value={formData.description}
                           placeholder="Enter description"
                           onChange={handleChange}
                         ></textarea>
