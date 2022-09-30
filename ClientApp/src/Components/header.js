@@ -1,6 +1,12 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const userToken = JSON.parse(localStorage.getItem("user_token"));
+  const handleLogout = () => {
+    localStorage.removeItem("user_token");
+    window.location.href = "/login";
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -22,18 +28,26 @@ const Header = () => {
                   </Link>
                 </li>
               </div>
-              <div className="d-flex">
+              {!userToken?.token ? (
+                <div className="d-flex">
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/login">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/signup">
+                      Signup
+                    </Link>
+                  </li>
+                </div>
+              ) : (
                 <li className="nav-item">
-                  <Link className="nav-link" to="/login">
-                    Login
+                  <Link className="nav-link" onClick={handleLogout}>
+                    Logout
                   </Link>
                 </li>
-                <li className="nav-item">
-                  <Link className="nav-link" to="/signup">
-                    Signup
-                  </Link>
-                </li>
-              </div>
+              )}
             </ul>
           </div>
         </div>

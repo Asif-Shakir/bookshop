@@ -1,7 +1,6 @@
 const Book = require("../models/books");
 
 exports.getBooks = async (req, res, next) => {
-  debugger;
   const data = await Book.find().sort({ title: "asc" });
   res.json({ status: 200, message: "Sucess", resultData: data });
 };
@@ -33,7 +32,7 @@ exports.postAddBook = async (req, res, next) => {
         description: req.body.description,
         pages: +req.body.pages,
       });
-      await book.save();
+      //await book.save();
     }
     res.json({ status: 200, message: "Sucess" });
   } catch (err) {

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import apiUrl from "../../Shared/Urls/apiUrl";
+import { getUserToken } from "../../Shared/util";
 
 const initialFormData = {
   _id: "",
@@ -13,7 +14,6 @@ const initialFormData = {
 const AddBook = () => {
   const params = useParams();
   const [formData, updateFormData] = useState(initialFormData);
-  const [bookDetail, setBookDetail] = useState(initialFormData);
   const navigate = useNavigate();
   useEffect(() => {
     const getBookDetails = async (bookId) => {
@@ -32,14 +32,20 @@ const AddBook = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(getUserToken());
     try {
       const res = await axios.post(apiUrl.AddBook, JSON.stringify(formData), {
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + getUserToken(),
+        },
       });
       if (res.data.status === 200) {
         return navigate("/");
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <>

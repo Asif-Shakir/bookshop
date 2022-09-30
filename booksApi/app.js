@@ -7,8 +7,10 @@ const cors = require("cors");
 
 const app = express();
 const bookRoutes = require("./routes/bookRoutes");
+const authRoutes = require("./routes/authRoutes");
 app.use(bodyParser.json());
 app.use(cors());
+app.use(authRoutes);
 app.use(bookRoutes);
 mongoose
   .connect(
