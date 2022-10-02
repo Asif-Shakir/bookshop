@@ -15,7 +15,7 @@ const BookDetails = () => {
       setBookDetail(res.data.resultData);
     };
     getBookDetails();
-  }, []);
+  }, [params.bookId]);
   return (
     <>
       <div className="container mt-5">

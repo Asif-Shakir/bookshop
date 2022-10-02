@@ -1,15 +1,13 @@
-import axios from "axios";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import apiUrl from "../../Shared/Urls/apiUrl";
+import axios from 'axios';
+import { useState } from 'react';
+import apiUrl from '../../Shared/Urls/apiUrl';
 
 const initialFormData = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 const Login = () => {
   const [formData, updateFormData] = useState(initialFormData);
-  const navigate = useNavigate();
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -19,12 +17,19 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(apiUrl.Login, JSON.stringify(formData), {
-        headers: { "Content-Type": "application/json" },
-      });
+      const res = await axios.post(
+        apiUrl.Login,
+        JSON.stringify(formData),
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
       if (res.data.status === 200) {
-        localStorage.setItem("user_token", JSON.stringify(res.data.resultData));
-        return (window.location.href = "/");
+        localStorage.setItem(
+          'user_token',
+          JSON.stringify(res.data.resultData)
+        );
+        return (window.location.href = '/');
       } else if (res.data.status === 401) {
         console.log(res.data);
       }
@@ -37,7 +42,9 @@ const Login = () => {
           <div className="col-6 mx-auto">
             <div className="card bg-light">
               <div className="card-body">
-                <h1 className="display-6 text-success fw-800">Login</h1>
+                <h1 className="display-6 text-success fw-800">
+                  Login
+                </h1>
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-12">
@@ -65,7 +72,10 @@ const Login = () => {
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-success" onClick={handleSubmit}>
+                  <button
+                    className="btn btn-success"
+                    onClick={handleSubmit}
+                  >
                     Submit
                   </button>
                 </form>

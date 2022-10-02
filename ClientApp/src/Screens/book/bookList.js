@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Card from '../../Components/card';
-import Header from '../../Components/header';
 import apiUrl from '../../Shared/Urls/apiUrl';
 
 const BookList = () => {
