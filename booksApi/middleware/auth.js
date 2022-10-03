@@ -1,9 +1,19 @@
 const User = require("../models/user");
-const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 module.exports = (req, res, next) => {
-  const token = req.get("Authorization").split(" ")[1];
+  const getAuth = req.get("Authorization");
+  let token;
+  if (getAuth) {
+    token = getAuth.split(" ")[1];
+    console.log(token);
+  } else {
+    return res.json({
+      status: 401,
+      message: "Unauthrized user",
+      resultData: null,
+    });
+  }
   let decodedToken;
   try {
     decodedToken = jwt.verify(token, "myspecialsecret");

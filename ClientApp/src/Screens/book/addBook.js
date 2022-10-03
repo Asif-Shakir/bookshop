@@ -14,6 +14,7 @@ const initialFormData = {
 const AddBook = () => {
   const params = useParams();
   const [formData, updateFormData] = useState(initialFormData);
+  const [selectedFile, setSelectedFile] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     const getBookDetails = async (bookId) => {
@@ -30,13 +31,18 @@ const AddBook = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(getUserToken());
+    let formData1 = new FormData();
+    formData1.append("obj", JSON.stringify(formData));
+    formData1.append("image", selectedFile);
     try {
-      const res = await axios.post(apiUrl.AddBook, JSON.stringify(formData), {
+      const res = await axios.post(apiUrl.AddBook, formData1, {
         headers: {
-          "Content-Type": "application/json",
+          //"Content-Type": "application/json",
           Authorization: "Bearer " + getUserToken(),
         },
       });
@@ -54,7 +60,9 @@ const AddBook = () => {
           <div className="col-9 mx-auto">
             <div className="card bg-light">
               <div className="card-body">
-                <h1 className="display-6 text-success fw-800">Add Book</h1>
+                <h1 className="display-6 text-success fw-800">
+                  {!params.bookId ? "Add Book" : "Edit Book"}
+                </h1>
                 <form onSubmit={handleSubmit}>
                   <input type="hidden" value={formData._id} />
                   <div className="row">
@@ -112,6 +120,20 @@ const AddBook = () => {
                           placeholder="Enter description"
                           onChange={handleChange}
                         ></textarea>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="row">
+                    <div className="col-4">
+                      <div className="mb-3">
+                        <label className="form-label">Image</label>
+                        <input
+                          type="file"
+                          name="image"
+                          className="form-control"
+                          placeholder="Enter description"
+                          onChange={handleFileChange}
+                        />
                       </div>
                     </div>
                   </div>

@@ -1,14 +1,24 @@
 import { Link } from "react-router-dom";
-
+import notFound from "../images/notfound.png";
 const Card = ({ book, details }) => {
+  const imgSrc = book.imagePath
+    ? "http://localhost:8080/" + book.imagePath
+    : notFound;
   return (
     <>
       <div className="card">
-        <div className="card-header bg-success">
-          <h5 className="text-white">Price: Rs.{book.price}</h5>
+        <div
+          style={{
+            height: "200px",
+            overflow: "hidden",
+            borderBottom: "1px solid #dadada",
+          }}
+        >
+          <img src={imgSrc} className="w-100" alt={book.title}></img>
         </div>
         <div className="card-body">
-          <h5 className="card-title text-secondary">{book.title}</h5>
+          <h5 className="card-title">{book.title}</h5>
+          <h6 className="text-secondary">Price: Rs.{book.price}</h6>
           {!details ? (
             <p
               style={{ height: "100px" }}
