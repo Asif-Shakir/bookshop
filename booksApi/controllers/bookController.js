@@ -14,6 +14,8 @@ exports.getBookDetails = async (req, res, next) => {
 exports.postAddBook = async (req, res, next) => {
   const reqObj = JSON.parse(req.body.obj);
   const bookId = reqObj["_id"];
+  const filePath = req.file.path;
+  console.log(filePath);
   try {
     if (bookId) {
       const findById = await Book.findById(bookId);
@@ -23,6 +25,7 @@ exports.postAddBook = async (req, res, next) => {
         findById.description = reqObj.description;
         findById.pages = +reqObj.pages;
         findById.creator = req.userId;
+        if (filePath) findById.imagePath = filePath;
         await findById.save();
         let findUser = await User.findById(req.userId);
         if (findUser) {
@@ -41,7 +44,7 @@ exports.postAddBook = async (req, res, next) => {
         description: reqObj.description,
         pages: +reqObj.pages,
         creator: req.userId,
-        imagePath: req.file.path,
+        imagePath: filePath,
       });
       const savedBook = await book.save();
       let findUser = await User.findById(req.userId);

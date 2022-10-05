@@ -1,11 +1,9 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import AuthContext from "../store/auth-context";
 
 const Header = () => {
-  const userToken = JSON.parse(localStorage.getItem("user_token"));
-  const handleLogout = () => {
-    localStorage.removeItem("user_token");
-    window.location.href = "/login";
-  };
+  const ctx = useContext(AuthContext);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-light">
@@ -21,7 +19,7 @@ const Header = () => {
                     Home
                   </Link>
                 </li>
-                {userToken?.token && (
+                {ctx.getToken && (
                   <li className="nav-item">
                     <Link className="nav-link" to="/addbook">
                       Add Book
@@ -29,7 +27,7 @@ const Header = () => {
                   </li>
                 )}
               </div>
-              {!userToken?.token ? (
+              {!ctx.getToken ? (
                 <div className="d-flex">
                   <li className="nav-item">
                     <Link className="nav-link" to="/login">
@@ -46,13 +44,17 @@ const Header = () => {
                 <div className="d-flex align-items-center">
                   <li className="nav-item">
                     <p className="m-0 fw-bold text-success">
-                      {userToken?.email}
+                      {ctx.getToken?.email}
                     </p>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link" onClick={handleLogout}>
+                    <span
+                      className="nav-link"
+                      style={{ cursor: "pointer" }}
+                      onClick={ctx.logout}
+                    >
                       Logout
-                    </Link>
+                    </span>
                   </li>
                 </div>
               )}

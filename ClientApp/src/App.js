@@ -8,20 +8,18 @@ import BookList from "./Screens/book/bookList";
 function App() {
   return (
     <>
-      <Router>
-        <Header />
-        <Routes>
-          {/* Authentication */}
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
+      <Header />
+      <Routes>
+        {/* Authentication */}
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
 
-          {/* BookRoutes */}
-          <Route path="/addbook" element={<AddBook />}></Route>
-          <Route path="/addbook/:bookId" element={<AddBook />}></Route>
-          <Route path="/details/:bookId" element={<BookDetails />}></Route>
-          <Route path="/" element={<BookList />}></Route>
-        </Routes>
-      </Router>
+        {/* BookRoutes */}
+        <Route path="/addbook" element={<AddBook />}></Route>
+        <Route path="/addbook/:bookId" element={<AddBook />}></Route>
+        <Route path="/details/:bookId" element={<BookDetails />}></Route>
+        <Route path="/" element={<BookList />}></Route>
+      </Routes>
     </>
   );
 }

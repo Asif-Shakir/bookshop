@@ -6,7 +6,6 @@ module.exports = (req, res, next) => {
   let token;
   if (getAuth) {
     token = getAuth.split(" ")[1];
-    console.log(token);
   } else {
     return res.json({
       status: 401,
@@ -25,6 +24,5 @@ module.exports = (req, res, next) => {
     throw error;
   }
   req.userId = decodedToken.userId;
-  console.log(req.userId);
   next();
 };
