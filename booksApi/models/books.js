@@ -21,7 +21,6 @@ const bookSchema = new Schema({
   },
   imagePath: {
     type: String,
-    required: true,
   },
   creator: {
     type: Schema.Types.ObjectId,

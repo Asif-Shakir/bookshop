@@ -16,7 +16,7 @@ const BookList = () => {
       console.log(res);
       setBookList(res.data.resultData);
     };
-    getBookList();
+    if (getUserToken()) getBookList();
   }, []);
   return (
     <>

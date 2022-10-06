@@ -1,6 +1,4 @@
-import axios from "axios";
 import { useContext, useState } from "react";
-import apiUrl from "../../Shared/Urls/apiUrl";
 import AuthContext from "../../store/auth-context";
 
 const initialFormData = {

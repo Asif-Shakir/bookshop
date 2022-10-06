@@ -19,7 +19,7 @@ exports.postLogin = async (req, res, next) => {
             userId: findUserByEmail._id.toString(),
           },
           "myspecialsecret",
-          { expiresIn: "1h" }
+          { expiresIn: "5h" }
         );
         res.json({
           status: 200,
