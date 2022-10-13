@@ -30,7 +30,7 @@ const AddBook = () => {
     title: yup
       .string()
       .required("Input is required")
-      .matches(/^[aA-zZ\s]+$/, "Please enter valid name"),
+      .matches(/^[aA-zZ\s]+$/, "Please enter valid namee"),
     price: yup
       .string()
       .matches(/^\d{1,5}$/, "Input allows only digits with 5 values")
