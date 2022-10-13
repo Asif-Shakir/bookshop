@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
-import AuthContext from "../../store/auth-context";
+import { useContext, useState } from 'react';
+import AuthContext from '../../store/auth-context';
 
 const initialFormData = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 const Login = () => {
   const ctx = useContext(AuthContext);
@@ -25,7 +25,9 @@ const Login = () => {
           <div className="col-6 mx-auto">
             <div className="card bg-light">
               <div className="card-body">
-                <h1 className="display-6 text-success fw-800">Login</h1>
+                <h1 className="display-6 text-success fw-800">
+                  Login
+                </h1>
                 <form onSubmit={handleSubmit}>
                   <div className="row">
                     <div className="col-12">
@@ -53,7 +55,10 @@ const Login = () => {
                       </div>
                     </div>
                   </div>
-                  <button className="btn btn-success" onClick={handleSubmit}>
+                  <button
+                    className="btn btn-success"
+                    onClick={handleSubmit}
+                  >
                     Submit
                   </button>
                 </form>
